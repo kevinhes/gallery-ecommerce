@@ -1,33 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// Routes 是一個使用 children 包裹 Route 的容器
+// 元件載入
+import { Routes, Route } from 'react-router-dom'
+
+// 樣式表載入
+import './assets/scss/main.scss'
+
+// 頁面載入
+import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
+import DashboardIndex from './pages/Dashboard/DashboardIndex'
+import ProductsList from './pages/Dashboard/ProductsList'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Routes>
+        <Route path='/' element={<Login />}></Route>
+        {/* Route 裡面包裹 Route 就是代表巢狀路由 */}
+        <Route path='/dashboard' element={<Dashboard />}>
+          {/* 這裡沒有 path 使用 index 是代表這一個元件是預設的 */}
+          <Route index element={ <DashboardIndex />}></Route>
+          <Route path='products-list' element={ <ProductsList />}></Route>
+        </Route>
+      </Routes>
     </>
   )
 }
