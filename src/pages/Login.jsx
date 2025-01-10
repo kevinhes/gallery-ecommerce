@@ -1,15 +1,25 @@
 import axios from "axios";
-// import { useState } from "react";
+import { useEffect } from "react";
 import Swal from 'sweetalert2'
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { getCookie, checkIsLoginInLoginPage } from "../helpers/auth";
 import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
+
 
 function Login() {
   // 基本 react hook form 的元件
   const { register, handleSubmit, formState: { errors } } = useForm();
-  
+  // react router 跳轉功能
+  const navigate =  useNavigate()
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const signinUrl = `${baseUrl}v2/admin/signin`;
+  
+  // 取得 cookie
+  const cookies = document.cookie.split(';');
+  const hexToken = getCookie(cookies);
 
   // const [ userInfo, setUserInfo ] = useState({
   //   username:'',
@@ -26,23 +36,25 @@ function Login() {
   //   })
   // }
 
+
+
   const onSubmit = async(data) => {
     try {
       const response = await axios.post(signinUrl, {
         ...data
       })
       const { token, expired } = response.data
-      const formattedExpired = dayjs(expired)
-      await Swal.fire({
+      const formattedExpired = dayjs.unix(expired).utc().format('ddd, DD MMM YYYY HH:mm:ss [UTC]');
+      const susseccAlert =  await Swal.fire({
         title: response.data.message,
         icon: 'success',
         timer: 1500,
         showConfirmButton: false,
-      }).then(( result ) => {
-        if( result.isDismissed === true ) {
-          document.cookie = `hexschool=${token}; expires=Thu, 18 Dec 2025 12:00:00 UTC; path=/`;
-        };
       })
+      if( susseccAlert.isDismissed === true ) {
+        document.cookie = `hexschool=${token}; expires=${formattedExpired}; path=/`;
+        navigate('/dashboard')
+      };
       
     } catch( error ) {
       Swal.fire({
@@ -52,6 +64,10 @@ function Login() {
       })
     }
   };
+
+  useEffect(() => {
+    checkIsLoginInLoginPage( hexToken, navigate )
+  },[])
 
   return (
     <>
