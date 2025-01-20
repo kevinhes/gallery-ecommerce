@@ -1,39 +1,22 @@
-import axios from "axios";
-// import Swal from 'sweetalert2'
-import { getCookie, checkIsLogin } from "../../helpers/auth";
+import { checkIsLogin } from "../../helpers/auth";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from "react";
 import { Modal } from 'bootstrap';
 import AddProductModal from "../../components/addProductModal";
+import { deleteProduct, getProductsList } from "../../helpers/adminProduct";
 
 export default function ProductsList() {
-  const baseUrl = import.meta.env.VITE_API_BASE_URL;
-  const api = import.meta.env.VITE_API_PATH;
-  const getProductsUrl = `${baseUrl}v2/api/${api}/admin/products/all`
   const navigate =  useNavigate()
-  const cookies = document.cookie.split(';');
-  const hexToken = getCookie(cookies)
+  const [ modalType, setModalType ] = useState('create')
+  const [ tempProduct, setTempProudct ] = useState({})
 
   const [productsList, setProductsList] = useState([])
   const [ isLogin, setIsLogin ] = useState(false)
-  // const [ tempProduct, setTempProduct ] = useState(null)
   const productModalRef = useRef(null)
 
-  const getProductsList = async() => {
-    try {
-      const response = await axios.get(getProductsUrl, {
-        headers: { Authorization: hexToken },
-      })
-      const { products } = response.data
-      setProductsList(products)
-      console.log(productsList);
-    } catch(error) {
-      console.log(error);
-      
-    }
-  }
-
-  const openModal = function() {
+  const openModal = function(modalType, tempProduct) {
+    setModalType(modalType);
+    setTempProudct(tempProduct)
     productModalRef.current.show()
   }
 
@@ -43,7 +26,7 @@ export default function ProductsList() {
 
   useEffect(() => {
     const verifyLogin = async () => {
-      await checkIsLogin(hexToken, navigate);
+      await checkIsLogin(navigate);
       setIsLogin(true);
     };
     verifyLogin();
@@ -51,7 +34,7 @@ export default function ProductsList() {
 
   useEffect(() => {
     if ( isLogin ) {
-      getProductsList()
+      getProductsList(setProductsList)
     }
   }, [isLogin])
 
@@ -63,13 +46,43 @@ export default function ProductsList() {
 
   return (
     <div>
-      <header className="d-flex justify-content-between">
+      <header className="d-flex justify-content-between align-items-center">
         <h1>產品列表</h1>
         <div>
-          <button type="button" className="btn btn-primary" onClick={openModal}>新增產品</button>
+          <button type="button" className="btn btn-primary" onClick={()=>openModal('create', {})}>新增產品</button>
         </div>
       </header>
-      <AddProductModal closeModal={closeModal} />
+      <section>
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">商品名稱</th>
+            <th scope="col">商品售價</th>
+            <th scope="col">商品原價</th>
+            <th scope="col">是否啟用</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          {productsList.map( (product, index) => (
+            <tr key={product.id} className={product.is_enabled === 1 ? '' : 'table-secondary'}>
+              <td> {index + 1} </td>
+              <td> {product.title} </td>
+              <td>{product.origin_price}</td>
+              <td>{product.price}</td>
+              <td>{product.is_enabled === 1 ? '是' : '否'}</td>
+              <td>
+                <button type="button" className="btn btn-warning" onClick={()=>openModal('edit', product)}>編輯</button>
+                <button type="button" className="btn btn-danger" onClick={()=> deleteProduct(product.id, setProductsList)}>刪除</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+        
+      </section>
+      <AddProductModal closeModal={closeModal} getProductsList={getProductsList} modalType={modalType} tempProduct={tempProduct} setProductsList={setProductsList}  />
     </div>
   )
 }

@@ -15,9 +15,11 @@ export const getCookie = (cookies) => {
 }
 
 export const checkIsLoginInLoginPage = async(token, navigate) => {
+  const cookies = document.cookie.split(';');
+  const hexToken = getCookie(cookies)
   try {
     const response = await axios.post(checkLoginUrl,{}, {
-      headers: { Authorization: token },
+      headers: { Authorization: hexToken },
     })
     if ( response.data.success ) {
       const successAlert = await Swal.fire({
@@ -36,10 +38,12 @@ export const checkIsLoginInLoginPage = async(token, navigate) => {
   }
 }
 
-export const checkIsLogin = async(token, navigate) => {
+export const checkIsLogin = async(navigate) => {
+  const cookies = document.cookie.split(';');
+  const hexToken = getCookie(cookies)
   try {
     const response = await axios.post(checkLoginUrl,{}, {
-      headers: { Authorization: token },
+      headers: { Authorization: hexToken },
     })
     if ( response.data.success ) return
   } catch(error) {

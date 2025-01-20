@@ -2,21 +2,24 @@
 // link 就是站內的 a 連結（簡單地說）
 import { Outlet, Link } from 'react-router-dom'
 
+
 function Dashboard() {
   console.log(1234);
   
   return (
     <>
-      <section className="container">
-        <div className="row">
-          <section className='col-3'>
-            <Link to='/dashboard'><h1>Dashboard</h1></Link>
-            <Link to='/dashboard/products-list'>產品列表</Link>
+      <section className="">
+          <section className='dashboard-navbar'>
+            <Link to='/dashboard' className='d-block mb-3'>
+              <i className="bi bi-house-fill text-light fs-3"></i>
+            </Link>
+            <Link to='/dashboard/products-list' className='d-block'>
+              <i className="bi bi-archive-fill text-light fs-3"></i>
+            </Link>
           </section>
-          <section className='col-9'>
+          <section className='ps-20 pt-10 pe-10'>
             <Outlet></Outlet>
           </section>
-        </div>
       </section>
     </>
   )
