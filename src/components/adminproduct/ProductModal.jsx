@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { addNewProduct, editProduct } from '../../helpers/adminProduct';
+import { addNewProduct, editProduct, uploadImage } from '../../helpers/adminProduct';
 
 
 export default function AddProductModal({ closeProductModal, modalType, tempProduct }) {
+
+  const [uploadedImageUrl, setUploadedImageUrl] = useState('')
 
   const [ tempNewProduct, setTempNewProduct ] = useState({
     "title": "",
@@ -38,6 +40,12 @@ export default function AddProductModal({ closeProductModal, modalType, tempProd
     } 
   }
 
+  const setUploadImage = async(event) => {
+    const uploadResponse = await uploadImage(event)
+    const {imageUrl} = uploadResponse.data
+    setUploadedImageUrl(imageUrl)
+
+  }
 
   useEffect(()=> {
     if(modalType === 'edit') {
@@ -71,9 +79,19 @@ export default function AddProductModal({ closeProductModal, modalType, tempProd
         <div className="modal-body">
           <div className="d-flex justify-content-between">
             <div className='w-50 me-5'>
-              <img src={tempNewProduct.imageUrl} alt="" className='img-fluid mb-3' />
-              <label htmlFor="imageUrl">商品網址</label>
-              <input type="text" id='imageUrl' value={tempNewProduct.imageUrl} name='imageUrl' className='form-control' onChange={(event) => {handleTempProduct(event)}} />
+              <div className='mb-3'>
+                <img src={tempNewProduct.imageUrl} alt="" className='img-fluid mb-3' />
+                <label htmlFor="imageUrl">商品網址</label>
+                <input type="text" id='imageUrl' value={tempNewProduct.imageUrl} name='imageUrl' className='form-control' onChange={(event) => {handleTempProduct(event)}} />
+              </div>
+              <div>
+                <input type="file" className='form-control mb-5' onChange={(event)=> { setUploadImage(event) }} />
+                <p className='word-break'>
+                  圖片網址
+                  <br />
+                  {uploadedImageUrl}
+                </p>
+              </div>
             </div>
             <div className='w-100'>
               {/* 產品名稱 */}
@@ -141,8 +159,6 @@ export default function AddProductModal({ closeProductModal, modalType, tempProd
 
 AddProductModal.propTypes = {
   closeProductModal: PropTypes.func, // 如果 closeProductModal 是必填的
-  getProductsList: PropTypes.func,
   modalType: PropTypes.string,
   tempProduct: PropTypes.array,
-  setProductsList: PropTypes.func,
 };

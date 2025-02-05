@@ -20,6 +20,8 @@ export default function DeleteProductModal({ closeDeleteProductModal, tempProduc
 
 
   useEffect(()=> {
+    console.log(tempProduct);
+    
     setTempNewProduct(tempProduct)
   },[tempProduct])
 
@@ -47,8 +49,5 @@ export default function DeleteProductModal({ closeDeleteProductModal, tempProduc
 
 DeleteProductModal.propTypes = {
   closeDeleteProductModal: PropTypes.func, // 如果 closeModal 是必填的
-  getProductsList: PropTypes.func,
-  modalType: PropTypes.string,
   tempProduct: PropTypes.array,
-  setProductsList: PropTypes.func,
 };

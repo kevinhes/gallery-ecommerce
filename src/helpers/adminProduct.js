@@ -150,3 +150,25 @@ export const editProduct = async(newProduct, closeModal) => {
     })
   }
 }
+
+  export const uploadImage = async(event) => {
+    const uploadImageUrl = `${baseUrl}v2/api/${api}/admin/upload`
+    const cookies = document.cookie.split(';');
+    const hexToken = getCookie(cookies)
+    const uploadFile = event.target.files[0]
+    console.log(uploadFile);
+    if (!uploadFile) return
+    const formData = new FormData()
+    formData.append('file-to-upload', uploadFile)
+
+    try {
+      const response = await axios.post(uploadImageUrl, formData, {
+        headers: { Authorization: hexToken },
+      })
+      return response
+    } catch (error) {
+      console.log(error);
+      
+    }
+    
+  }
