@@ -1,15 +1,9 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import axios from 'axios'
-import { getCookie } from '../helpers/auth';
+import { addNewProduct, editProduct } from '../../helpers/adminProduct';
 
 
-export default function AddProductModal({ closeModal, getProductsList, modalType, tempProduct, setProductsList }) {
-  const baseUrl = import.meta.env.VITE_API_BASE_URL;
-  const api = import.meta.env.VITE_API_PATH;
-  const cookies = document.cookie.split(';');
-  const hexToken = getCookie(cookies)
-  
+export default function AddProductModal({ closeProductModal, modalType, tempProduct }) {
 
   const [ tempNewProduct, setTempNewProduct ] = useState({
     "title": "",
@@ -44,42 +38,6 @@ export default function AddProductModal({ closeModal, getProductsList, modalType
     } 
   }
 
-  const addNewProduct = async() => {
-    const addProductUrl = `${baseUrl}v2/api/${api}/admin/product`
-    try {
-      const response = await axios.post(addProductUrl,{
-        data: {
-          ...tempNewProduct
-        }},
-        {
-          headers: { Authorization: hexToken },
-        }
-      )
-      getProductsList(setProductsList);
-      closeModal()
-    } catch(error) {
-      console.log(error);
-    }
-  }
-
-  const editProduct = async() => {
-    const editProductUrl = `${baseUrl}v2/api/${api}/admin/product/${tempNewProduct.id}`
-    try {
-      const response = await axios.put(editProductUrl,{
-        data: {
-          ...tempNewProduct
-        }},
-        {
-          headers: { Authorization: hexToken },
-        }
-      )
-      console.log(response);
-      getProductsList(setProductsList);
-      closeModal()
-    } catch(error) {
-      console.log(error);
-    }
-  }
 
   useEffect(()=> {
     if(modalType === 'edit') {
@@ -108,7 +66,7 @@ export default function AddProductModal({ closeModal, getProductsList, modalType
       <div className="modal-content">
         <div className="modal-header">
           <h1 className="modal-title fs-5" id="exampleModalLabel">{ modalType === 'create' ? '新增商品' : '編輯商品' }</h1>
-          <button type="button" className="btn-close" aria-label="Close" onClick={()=> closeModal()}></button>
+          <button type="button" className="btn-close" aria-label="Close" onClick={()=> closeProductModal()}></button>
         </div>
         <div className="modal-body">
           <div className="d-flex justify-content-between">
@@ -168,11 +126,11 @@ export default function AddProductModal({ closeModal, getProductsList, modalType
           </div>
         </div>
         <div className="modal-footer">
-          <button type="button" className="btn btn-secondary" onClick={()=> closeModal()}>關閉</button>
+          <button type="button" className="btn btn-secondary" onClick={()=> closeProductModal()}>關閉</button>
           {
             modalType === 'create' ?
-              (<button type="button" onClick={addNewProduct} className='btn btn-primary'>新增</button>) :
-              (<button type="button" onClick={editProduct} className='btn btn-primary'>編輯</button>)
+              (<button type="button" onClick={() =>addNewProduct(tempNewProduct, closeProductModal)} className='btn btn-primary'>新增</button>) :
+              (<button type="button" onClick={() =>editProduct(tempNewProduct, closeProductModal)} className='btn btn-primary'>編輯</button>)
           }
         </div>
       </div>
@@ -182,9 +140,9 @@ export default function AddProductModal({ closeModal, getProductsList, modalType
 }
 
 AddProductModal.propTypes = {
-  closeModal: PropTypes.func, // 如果 closeModal 是必填的
+  closeProductModal: PropTypes.func, // 如果 closeProductModal 是必填的
   getProductsList: PropTypes.func,
   modalType: PropTypes.string,
-  tempProduct: PropTypes.object,
+  tempProduct: PropTypes.array,
   setProductsList: PropTypes.func,
 };

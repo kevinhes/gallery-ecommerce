@@ -73,7 +73,7 @@ function Login() {
     <>
       <section className="vw-100 vh-100 d-flex">
         <div className="w-60 p-5">
-          <img src={`${import.meta.env.BASE_URL}images/login_img.jpeg`} alt="登入照片" className="w-100 h-100 rounded-5" />
+          <img src={`https://kevinhes.github.io${import.meta.env.BASE_URL}/images/login_img.jpeg`} alt="登入照片" className="w-100 h-100 rounded-5" />
           </div>
         <div className="w-40 d-flex justify-content-center align-items-center">
           <div className="w-80 p-5 border rounded-5">
