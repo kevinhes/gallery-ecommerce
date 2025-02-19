@@ -14,13 +14,20 @@ import ProductsList from './pages/Dashboard/ProductsList'
 // 頁面匯入前台
 import ProductsPage from './pages/ProductsPage'
 import ProductPage from './pages/product/ProductPage'
+import HomePage from './pages/HomePage'
+import IndexPage from './pages/IndexPage'
+import ShoppingCart from './pages/ShoppingCart'
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<ProductsPage />}></Route>
-        <Route path='/product/:id' element={<ProductPage />}></Route>
+        <Route path='/' element={<IndexPage />}>
+          <Route index element={ <HomePage />}></Route>
+          <Route path='/products' element={<ProductsPage />}></Route>
+          <Route path='/shopping-cart' element={<ShoppingCart />}></Route>
+          <Route path='/product/:id' element={<ProductPage />}></Route>
+        </Route>
         <Route path='/login' element={<Login />}></Route>
         {/* Route 裡面包裹 Route 就是代表巢狀路由 */}
         <Route path='/dashboard' element={<Dashboard />}>
