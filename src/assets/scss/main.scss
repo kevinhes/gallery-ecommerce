@@ -1,5 +1,9 @@
 @import './vendor/bootstrap';
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
+@import './base/base';
+
 @import './components/navbar';
+@import './components/productcard';
+
 @import './helpers/helpers'
