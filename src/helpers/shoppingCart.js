@@ -12,7 +12,14 @@ export const addProductToCart = async( product_id, qty = 1 ) => {
         qty
       }
     })
-    console.log(response);
+    if( response.data.success ) {
+      await Swal.fire({
+        title: '已加入購物車',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+      })
+    }
     
   } catch (error) {
     console.log(error);

@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import ReactLoading from 'react-loading';
 
 // custom library
 import { getProductsList } from "../helpers/product";
 
+// components
+import ProductsList from "../components/products/productsList";
+
 
 export default function ProductsPage() {
   const [ productList, setProductList ] = useState([])
+  const [ isLoading, setIsLoading ] = useState(false)
 
   const handleProductList = async( page = 1 ) => {
+    setIsLoading(true)
     const products = await getProductsList( page )
     setProductList(products)
+    setIsLoading(false)
   }
 
   useEffect(()=> {
@@ -19,29 +25,16 @@ export default function ProductsPage() {
 
   return (
     <>
-      <section className="container">
+      <section className="container position-relative">
         <h1 className="mb-5">Product list</h1>
-        <ul className="list-unstyled row">
-          {
-            productList.map( product => (
-              <li key={product.id} className="col-6 mb-5">
-                <Link to={ `/product/${product.id}` }>
-                  <div className="product-card">
-                    <div className="prodct-card-wrap">
-                      <img src={product.imageUrl} alt="" className="prodct-card-img" />
-                    </div>
-                    <div className="prodct-card-wrap prodct-card-title position-absolute d-flex align-items-end">
-                      <p>{product.title}</p>
-                    </div>
-                    <div className="prodct-card-wrap prodct-card-title prodct-card-category position-absolute d-flex align-items-end">
-                      <p>{product.category}</p>
-                    </div>
-                  </div>
-                </Link>
-              </li>
-            ) )
-          }
-        </ul>
+        {
+          isLoading === true ?
+            <div className="w-100 vh-100 d-flex justify-content-center align-items-center">
+              <ReactLoading type="spin" color="#4F46E5" />
+            </div>
+            :
+            <ProductsList productList={productList} />
+        }
       </section>
     </>
   )
