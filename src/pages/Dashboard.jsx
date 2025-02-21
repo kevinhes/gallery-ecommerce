@@ -4,8 +4,6 @@ import { Outlet, Link } from 'react-router-dom'
 
 
 function Dashboard() {
-  console.log(1234);
-  
   return (
     <>
       <section className="">

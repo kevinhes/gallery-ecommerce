@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 
 // custom library
 import { getProduct } from "../../helpers/product"
+import { addProductToCart } from "../../helpers/shoppingCart"
 
 export default function ProductPage() {
   const { id } = useParams()
@@ -39,7 +40,9 @@ export default function ProductPage() {
           </div>
           <div className="d-flex justify-content-between align-items-center">
             <p><span>價格：</span><span>{product.price}</span></p>
-            <button type="button" className="btn btn-danger">加入購物車</button>
+            <button type="button" className="btn btn-danger" onClick={() => addProductToCart(product.id)}>
+              加入購物車
+            </button>
           </div>
         </div>
       </div>
