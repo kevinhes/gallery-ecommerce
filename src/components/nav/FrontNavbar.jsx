@@ -12,7 +12,8 @@ export default function FrontNavbar() {
             <Link to="/products" className="me-3">
               產品列表
             </Link>
-            <Link to="/shopping-cart">購物車</Link>
+            <Link to="/shopping-cart" className='me-3'>購物車</Link>
+            <Link to="/login">登入頁</Link>
           </nav>
         </section>
       </section>

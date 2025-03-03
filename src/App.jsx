@@ -25,14 +25,14 @@ function App() {
       <Routes>
         <Route path="/" element={<IndexPage />}>
           <Route index element={<HomePage />}></Route>
-          <Route path="products" element={<ProductsPage />}></Route>
-          <Route path="shopping-cart" element={<ShoppingCart />}></Route>
-          <Route path="product/:id" element={<ProductPage />}></Route>
+          <Route path="/products" element={<ProductsPage />}></Route>
+          <Route path="/shopping-cart" element={<ShoppingCart />}></Route>
+          <Route path="/product/:id" element={<ProductPage />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
-        <Route path="login" element={<Login />}></Route>
+        <Route path="/login" element={<Login />}></Route>
         {/* Route 裡面包裹 Route 就是代表巢狀路由 */}
-        <Route path="dashboard" element={<Dashboard />}>
+        <Route path="/dashboard" element={<Dashboard />}>
           {/* 這裡沒有 path 使用 index 是代表這一個元件是預設的 */}
           <Route index element={<DashboardIndex />}></Route>
           <Route path="products-list" element={<ProductsList />}></Route>
