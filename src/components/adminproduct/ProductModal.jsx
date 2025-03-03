@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { addNewProduct, editProduct, uploadImage } from '../../helpers/adminProduct';
+import { useDispatch } from 'react-redux';
+import { setMessage } from '../../slice/toastSlice';
 
 
-export default function AddProductModal({ closeProductModal, modalType, tempProduct }) {
+export default function AddProductModal({ closeProductModal, modalType, tempProduct, setProductsList, setPagination }) {
 
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
+  const dispatch = useDispatch()
 
   const [ tempNewProduct, setTempNewProduct ] = useState({
     "title": "",
@@ -45,6 +48,46 @@ export default function AddProductModal({ closeProductModal, modalType, tempProd
     const {imageUrl} = uploadResponse.data
     setUploadedImageUrl(imageUrl)
 
+  }
+
+  const handleAddNewProduct = async( newProduct) => {
+    const result = await addNewProduct(newProduct)
+    console.log(result.response);
+    
+    if ( result.result ) {
+      setProductsList(result.data.products);
+      setPagination(result.data.pagination);
+      dispatch(setMessage({
+        text: result.response.data.message,
+        status: 'success'
+      }))
+    } else {
+      const { message } = result.data.response.data
+      dispatch(setMessage({
+        text: message.join('、'),
+        status: 'failed'
+      }))
+    }
+    closeProductModal()
+  }
+
+  const handleEditNewProduct = async( newProduct) => {
+    const result = await editProduct(newProduct)
+    if ( result.result ) {
+      setProductsList(result.data.products)
+      setPagination(result.data.pagination)
+      dispatch(setMessage({
+        text: result.response.data.message,
+        status: 'success'
+      }))
+    } else {
+      const { message } = result.data.response.data
+      dispatch(setMessage({
+        text: message.join('、'),
+        status: 'failed'
+      }))
+    }
+    closeProductModal()
   }
 
   useEffect(()=> {
@@ -147,8 +190,8 @@ export default function AddProductModal({ closeProductModal, modalType, tempProd
           <button type="button" className="btn btn-secondary" onClick={()=> closeProductModal()}>關閉</button>
           {
             modalType === 'create' ?
-              (<button type="button" onClick={() =>addNewProduct(tempNewProduct, closeProductModal)} className='btn btn-primary'>新增</button>) :
-              (<button type="button" onClick={() =>editProduct(tempNewProduct, closeProductModal)} className='btn btn-primary'>編輯</button>)
+              (<button type="button" onClick={() =>handleAddNewProduct(tempNewProduct)} className='btn btn-primary'>新增</button>) :
+              (<button type="button" onClick={() =>handleEditNewProduct(tempNewProduct)} className='btn btn-primary'>編輯</button>)
           }
         </div>
       </div>
@@ -161,4 +204,6 @@ AddProductModal.propTypes = {
   closeProductModal: PropTypes.func, // 如果 closeProductModal 是必填的
   modalType: PropTypes.string,
   tempProduct: PropTypes.array,
+  setProductsList: PropTypes.func,
+  setPagination:PropTypes.func,
 };

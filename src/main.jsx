@@ -5,10 +5,16 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 
+// redux
+import { store } from './store.js';
+import { Provider } from 'react-redux';
+
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter basename="/gallery-ecommerce">
-    <App />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter basename="/gallery-ecommerce">
+      <App />
+    </BrowserRouter>
+  </Provider>
   // <StrictMode>
   // </StrictMode>,
 )

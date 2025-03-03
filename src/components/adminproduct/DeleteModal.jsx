@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { deleteProduct } from '../../helpers/adminProduct'
+import { useDispatch } from 'react-redux'
+import { setMessage } from '../../slice/toastSlice'
 
 
-export default function DeleteProductModal({ closeDeleteProductModal, tempProduct }) {
-
+export default function DeleteProductModal({ closeDeleteProductModal, tempProduct, setProductsList, setPagination }) {
+  const dispatch = useDispatch()
   const [ tempNewProduct, setTempNewProduct ] = useState({
     "title": "",
     "category": "",
@@ -18,10 +20,28 @@ export default function DeleteProductModal({ closeDeleteProductModal, tempProduc
     imagesUrl:[]
   })
 
+  const handleDeleteProduct = async(id) => {
+    const result = await deleteProduct(id)
+
+    if ( result.result ) {
+      setProductsList(result.data.products);
+      setPagination(result.data.pagination);
+      dispatch(setMessage({
+        text: result.response.data.message,
+        status: 'success'
+      }))
+    } else {
+      const { message } = result.data.response.data
+      dispatch(setMessage({
+        text: message,
+        status: 'failed'
+      }))
+    }
+    closeDeleteProductModal()
+  }
+
 
   useEffect(()=> {
-    console.log(tempProduct);
-    
     setTempNewProduct(tempProduct)
   },[tempProduct])
 
@@ -39,7 +59,7 @@ export default function DeleteProductModal({ closeDeleteProductModal, tempProduc
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-secondary" onClick={()=> closeDeleteProductModal()}>關閉</button>
-          <button type="button" onClick={() =>deleteProduct(tempNewProduct.id, closeDeleteProductModal)} className='btn btn-danger'>刪除</button>
+          <button type="button" onClick={() =>handleDeleteProduct(tempNewProduct.id)} className='btn btn-danger'>刪除</button>
         </div>
       </div>
     </div>
@@ -50,4 +70,6 @@ export default function DeleteProductModal({ closeDeleteProductModal, tempProduc
 DeleteProductModal.propTypes = {
   closeDeleteProductModal: PropTypes.func, // 如果 closeModal 是必填的
   tempProduct: PropTypes.array,
+  setProductsList: PropTypes.func,
+  setPagination:PropTypes.func,
 };

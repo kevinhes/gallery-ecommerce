@@ -45,7 +45,9 @@ export const checkIsLogin = async(navigate) => {
     const response = await axios.post(checkLoginUrl,{}, {
       headers: { Authorization: hexToken },
     })
-    if ( response.data.success ) return
+    if ( response.data.success ) {
+      return true
+    }
   } catch(error) {
     const errorAlert = await Swal.fire({
       title: error.response.data.message,

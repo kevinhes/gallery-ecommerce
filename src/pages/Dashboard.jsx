@@ -2,6 +2,8 @@
 // link 就是站內的 a 連結（簡單地說）
 import { Outlet, Link } from 'react-router-dom'
 
+import Toast from '../components/adminproduct/Toast'
+
 
 function Dashboard() {
   return (
@@ -19,6 +21,8 @@ function Dashboard() {
             <Outlet></Outlet>
           </section>
       </section>
+
+      <Toast />
     </>
   )
 }

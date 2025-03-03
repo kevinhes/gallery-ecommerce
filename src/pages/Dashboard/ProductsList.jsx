@@ -19,6 +19,7 @@ export default function ProductsList() {
   const productModalRef = useRef(null)
   const deleteProductModalRef = useRef(null)
 
+
   const openProductModal = function(modalType, tempProduct) {
     setModalType(modalType);
     setTempProudct(tempProduct)
@@ -120,10 +121,26 @@ export default function ProductsList() {
           ))}
         </tbody>
       </table>
+
         <Pagination pagination={pagination} changeProductPage={changeProductPage} />
+
+
+
       </section>
-      <ProductModal closeProductModal={closeProductModal} getProductsList={getProductsList} modalType={modalType} tempProduct={tempProduct} />
-      <DeleteProductModal closeDeleteProductModal={closeDeleteProductModal} tempProduct={tempProduct} />
+      <ProductModal
+        closeProductModal={closeProductModal}
+        getProductsList={getProductsList}
+        modalType={modalType}
+        tempProduct={tempProduct}
+        setProductsList={setProductsList}
+        setPagination={setPagination}
+      />
+      <DeleteProductModal
+        closeDeleteProductModal={closeDeleteProductModal}
+        tempProduct={tempProduct}
+        setProductsList={setProductsList}
+        setPagination={setPagination}
+      />
     </div>
   )
 }
