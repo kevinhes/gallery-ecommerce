@@ -21,7 +21,7 @@ export const addProductToCart = async (product_id, qty = 1) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    alert(error.response.data.message);
   }
 };
 
@@ -32,7 +32,7 @@ export const getShoppingCart = async () => {
     const { carts } = response.data.data;
     return carts;
   } catch (error) {
-    console.log(error);
+    alert(error.response.data.message);
   }
 };
 
@@ -56,7 +56,7 @@ export const editProductQty = async (product_id, qty) => {
     const carts = await getShoppingCart();
     return carts;
   } catch (error) {
-    console.log(error);
+    alert(error.response.data.message);
   }
 };
 
@@ -75,7 +75,7 @@ export const deleteProductFromShoppingCart = async (id) => {
     const carts = await getShoppingCart();
     return carts;
   } catch (error) {
-    console.log(error);
+    alert(error.response.data.message);
   }
 };
 
@@ -94,14 +94,12 @@ export const deleteAllProduct = async () => {
     const carts = await getShoppingCart();
     return carts;
   } catch (error) {
-    console.log(error);
+    alert(error.response.data.message);
   }
 };
 
 export const checkout = async (data) => {
   const checkoutUrl = `${baseUrl}v2/api/${api}/order`;
-  console.log(data);
-
   const orderInfo = {
     data: {
       user: {

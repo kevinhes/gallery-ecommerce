@@ -56,7 +56,6 @@ export const getProductsListByPage = createAsyncThunk(
       const response = await axios.get(getProductsUrl, {
         headers: { Authorization: hexToken },
       });
-      console.log(response);
 
       const { products } = response.data;
       const { pagination } = response.data;

@@ -39,7 +39,7 @@ export const getProductsList = async () => {
     const productsArray = Object.values(products);
     return productsArray;
   } catch (error) {
-    console.log(error);
+    alert(error.response.data.message);
   }
 };
 
@@ -137,7 +137,6 @@ export const uploadImage = async (event) => {
   const cookies = document.cookie.split(';');
   const hexToken = getCookie(cookies);
   const uploadFile = event.target.files[0];
-  console.log(uploadFile);
   if (!uploadFile) return;
   const formData = new FormData();
   formData.append('file-to-upload', uploadFile);
@@ -148,6 +147,6 @@ export const uploadImage = async (event) => {
     });
     return response;
   } catch (error) {
-    console.log(error);
+    alert(error.response.data.message);
   }
 };

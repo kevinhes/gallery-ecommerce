@@ -10,7 +10,7 @@ export const getProductsList = async (page = 1) => {
     const { products } = response.data;
     return products;
   } catch (error) {
-    console.log(error);
+    alert(error.response.data.message);
   }
 };
 
@@ -19,10 +19,9 @@ export const getProduct = async (id) => {
   try {
     const response = await axios.get(getProductsUrl);
     const { product } = response.data;
-    console.log(product);
 
     return product;
   } catch (error) {
-    console.log(error);
+    alert(error.response.data.message);
   }
 };

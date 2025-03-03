@@ -59,8 +59,6 @@ export default function AddProductModal({
 
   const handleAddNewProduct = async (newProduct) => {
     const result = await addNewProduct(newProduct);
-    console.log(result.response);
-
     if (result.result) {
       setProductsList(result.data.products);
       setPagination(result.data.pagination);
