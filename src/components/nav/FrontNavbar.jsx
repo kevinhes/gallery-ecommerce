@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom';
 
 export default function FrontNavbar() {
   return (
@@ -6,14 +6,16 @@ export default function FrontNavbar() {
       <section className="container">
         <section className="d-flex justify-content-between">
           <div>
-            <Link to='/'>Home</Link>
+            <Link to="/">Home</Link>
           </div>
           <nav>
-            <Link to='/products' className="me-3">產品列表</Link>
-            <Link to='/shopping-cart'>購物車</Link>
+            <Link to="/products" className="me-3">
+              產品列表
+            </Link>
+            <Link to="/shopping-cart">購物車</Link>
           </nav>
         </section>
       </section>
     </section>
-  )
+  );
 }

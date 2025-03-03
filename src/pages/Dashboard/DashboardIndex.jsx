@@ -3,5 +3,5 @@ export default function DashboardIndex() {
     <>
       <h1>Dashborad Index</h1>
     </>
-  )
+  );
 }
