@@ -1,5 +1,18 @@
+import { useDispatch, useSelector } from "react-redux";
+import { getFrontProductsListByPage } from "../slice/frontendProductsSlice";
+import { useEffect } from "react";
+
 export default function HomePage() {
+  const productsList = useSelector((state) => {
+    return state.frontendProducts.productsList
+  });
+  const dispatch = useDispatch()
   const backgroundImage = '/images/Tsunami_by_hokusai_19th_century.jpg';
+  
+
+  useEffect(() => {
+    dispatch(getFrontProductsListByPage())
+  },[])
 
   return (
     <main className="position-relative">
