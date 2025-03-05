@@ -298,10 +298,10 @@ $cyans: (
 // fusv-enable
 
 // scss-docs-start theme-color-variables
-$primary: $blue !default;
-$secondary: $gray-600 !default;
+$primary: #AC3B21;//$blue !default;
+$secondary: #D98E5D;//$gray-600 !default;
 $success: $green !default;
-$info: $cyan !default;
+$info: #F2E6D8;//$cyan !default;
 $warning: $yellow !default;
 $danger: $red !default;
 $light: $gray-100 !default;
@@ -445,6 +445,9 @@ $spacers: (
 $position-values: (
   0: 0,
   50: 50%,
+  80: 80%,
+  85: 85%,
+  90: 90%,
   100: 100%,
 ) !default;
 // scss-docs-end position-map
@@ -491,7 +494,7 @@ $icon-link-icon-transform: translate3d(0.25em, 0, 0) !default;
 //
 // Style p element.
 
-$paragraph-margin-bottom: 1rem !default;
+$paragraph-margin-bottom: 0;//1rem !default;
 
 // Grid breakpoints
 //
@@ -680,7 +683,7 @@ $font-sizes: (
 // scss-docs-end font-sizes
 
 // scss-docs-start headings-variables
-$headings-margin-bottom: $spacer * 0.5 !default;
+$headings-margin-bottom: 0;//$spacer * 0.5 !default;
 $headings-font-family: null !default;
 $headings-font-style: null !default;
 $headings-font-weight: 500 !default;

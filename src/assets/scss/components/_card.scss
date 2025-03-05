@@ -16,3 +16,34 @@
     margin-right: 12px;
   }
 }
+
+
+.card {
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  &.rotate-card {
+    position: absolute;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+    img {
+      width: 420px;
+    }
+    &:nth-child(1) {
+      // bottom: 100%;
+      top: 10%;
+      left: 30%;
+      transform: rotate(-20deg);
+    }
+    &:nth-child(2) {
+      top: 25%;
+      left: 50%;
+      transform: rotate(20deg);
+    }
+    &:nth-child(3) {
+      top: 45%;
+      left: 30%;
+      transform: rotate(-10deg);
+    }
+    // transform: rotate(20deg);
+  }
+}
