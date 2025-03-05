@@ -1,11 +1,11 @@
-const baseUrl = import.meta.env.BASE_URL
-
 export default function HomePage() {
-  const backgroundImage = `https://kevinhes.github.io${baseUrl}/images/Tsunami_by_hokusai_19th_century.jpg`
+  const backgroundImage = '/images/Tsunami_by_hokusai_19th_century.jpg';
+
   return (
-    <main>
-      <h1>Home</h1>
-      <img src={backgroundImage} alt="" />
+    <main className="position-relative">
+      <section className="position-absolute top-0 start-0 vw-100 vh-100 overflow-hidden opacity-50">
+        <img src={backgroundImage} alt="背景圖片" className="bg-image" />
+      </section>
     </main>
   );
 }
