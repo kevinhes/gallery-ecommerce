@@ -7,3 +7,9 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.front-navbar {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+}
