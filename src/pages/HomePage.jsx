@@ -3,6 +3,9 @@ import { getFrontProductsListByPage } from "../slice/frontendProductsSlice";
 import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 
+// actions
+import { addProductToCart } from "../slice/shoppingCartSlice";
+
 // components
 import HomeBanner from "../components/home/HomeBanner";
 
@@ -20,6 +23,10 @@ export default function HomePage() {
       .sort(() => Math.random() - 0.5)
       .slice(0, 3); // 只取前三個
   }, [productsList])
+
+  const handleAddProductToCart = async(payload) => {
+    dispatch(addProductToCart(payload))
+  }
 
 
   useEffect(() => {
@@ -74,7 +81,7 @@ export default function HomePage() {
                         <p className="text-clamp-2 mb-5">{painting.description}</p>
                         <div className="d-flex justify-content-end">
                           <Link to={`/product/${painting.id}`} className="btn btn-outline-dark me-2">查看詳情</Link>
-                          <button type="button" className="btn btn-dark">加入購物車</button>
+                          <button type="button" className="btn btn-dark" onClick={() => handleAddProductToCart({product_id:painting.id, qty:1})}>加入購物車</button>
                         </div>
                       </div>
                     </div>
