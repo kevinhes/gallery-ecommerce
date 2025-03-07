@@ -14,3 +14,10 @@
     z-index: $i;
   }
 }
+
+.text-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 限制顯示 2 行 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

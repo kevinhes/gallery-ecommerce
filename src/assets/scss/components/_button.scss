@@ -1,0 +1,23 @@
+.btn {
+  padding: 8px 12px;
+  border-radius: 16px;
+  transition: all .3s;
+}
+
+.btn-dark {
+  border: 1px solid $dark;
+  background: $dark;
+  color: $light;
+  &:hover {
+  background: $primary;
+  border: 1px solid $primary;
+  }
+}
+
+.btn-outline-dark {
+  border: 1px solid $dark;
+  &:hover {
+    background: $dark;
+    color: $light;
+  }
+}
