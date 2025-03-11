@@ -4,6 +4,26 @@
   transition: all .3s;
 }
 
+.btn-primary {
+  border: 1px solid $primary;
+  background: $primary;
+  color: $light;
+  &:hover {
+  background: $secondary;
+  border: 1px solid $secondary;
+  }
+}
+
+.btn-outline-primary {
+  border: 1px solid $primary;
+  color: $dark;
+  &:hover {
+  background: $primary;
+  border: 1px solid $primary;
+  color: $light;
+  }
+}
+
 .btn-dark {
   border: 1px solid $dark;
   background: $dark;
@@ -11,6 +31,17 @@
   &:hover {
   background: $primary;
   border: 1px solid $primary;
+  }
+}
+
+.btn-danger {
+  border: 1px solid $danger;
+  background: $danger;
+  color: $light;
+  &:hover {
+  background: $light;
+  border: 1px solid $danger;
+  color: $danger;
   }
 }
 

@@ -17,8 +17,11 @@ function Dashboard() {
             <Link to="/dashboard" className="d-block mb-3">
               <i className="bi bi-house-fill text-light fs-3"></i>
             </Link>
-            <Link to="/dashboard/products-list" className="d-block">
+            <Link to="/dashboard/products-list" className="d-block mb-3">
               <i className="bi bi-archive-fill text-light fs-3"></i>
+            </Link>
+            <Link to="/dashboard/news-dashboard" className="d-block">
+              <i className="bi bi-newspaper text-light fs-3"></i>
             </Link>
           </div>
           <div>

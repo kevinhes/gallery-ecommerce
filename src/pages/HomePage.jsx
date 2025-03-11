@@ -34,6 +34,10 @@ export default function HomePage() {
       <HomeAbout />
       {/* 最新作品 */}
       <HomePainting />
+      {/* 最新消息 */}
+      <section className="container py-25">
+        <h2>最新消息</h2>
+      </section>
     </main>
   );
 }

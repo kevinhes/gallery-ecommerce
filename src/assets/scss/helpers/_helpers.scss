@@ -21,3 +21,12 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.quill .ql-container {
+  height: 300px;
+}
+
+.admin-news-image {
+  object-fit: cover;
+  width: 100%;
+}

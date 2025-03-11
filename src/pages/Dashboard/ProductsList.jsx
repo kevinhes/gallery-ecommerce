@@ -3,9 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import Swal from 'sweetalert2';
 import { Modal } from 'bootstrap';
+
+// components
 import ProductModal from '../../components/adminproduct/ProductModal';
 import DeleteProductModal from '../../components/adminproduct/DeleteModal';
 import Pagination from '../../components/adminproduct/Pagination';
+
+// actions
 import {
   getProductsList,
   getProductsListByPage,
@@ -93,7 +97,7 @@ export default function ProductsList() {
   }, []);
 
   return (
-    <div>
+    <>
       <header className="d-flex justify-content-between align-items-center">
         <h1>產品列表</h1>
         <div>
@@ -169,6 +173,6 @@ export default function ProductsList() {
         setProductsList={setProductsList}
         setPagination={setPagination}
       />
-    </div>
+    </>
   );
 }

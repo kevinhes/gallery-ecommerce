@@ -10,6 +10,8 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import DashboardIndex from './pages/Dashboard/DashboardIndex';
 import ProductsList from './pages/Dashboard/ProductsList';
+import NewsDashboard from './pages/Dashboard/NewsDashboard';
+import NewsDetail from './pages/Dashboard/NewsDashborad/NewsDetail';
 
 // 頁面匯入前台
 import ProductsPage from './pages/ProductsPage';
@@ -17,6 +19,7 @@ import ProductPage from './pages/product/ProductPage';
 import HomePage from './pages/HomePage';
 import IndexPage from './pages/IndexPage';
 import ShoppingCart from './pages/ShoppingCart';
+import News from './pages/News';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -28,6 +31,7 @@ function App() {
           <Route path="/products" element={<ProductsPage />}></Route>
           <Route path="/shopping-cart" element={<ShoppingCart />}></Route>
           <Route path="/product/:id" element={<ProductPage />}></Route>
+          <Route path="/news" element={<News />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
         <Route path="/login" element={<Login />}></Route>
@@ -36,6 +40,9 @@ function App() {
           {/* 這裡沒有 path 使用 index 是代表這一個元件是預設的 */}
           <Route index element={<DashboardIndex />}></Route>
           <Route path="products-list" element={<ProductsList />}></Route>
+          <Route path="news-dashboard" element={<NewsDashboard/>}></Route>
+          <Route path='add-news' element={ <NewsDetail/> } ></Route>
+          <Route path='edit-news/:id' element={ <NewsDetail/> } ></Route>
         </Route>
       </Routes>
     </>
