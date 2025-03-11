@@ -1,16 +1,19 @@
+// hook
+import { useEffect, useMemo } from "react";
+
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { getFrontProductsListByPage } from "../slice/frontendProductsSlice";
-import { useEffect, useMemo } from "react";
 
 // components
 import HomeBanner from "../components/home/HomeBanner";
 import HomeAbout from "../components/home/HomeAbout";
 import HomePainting from "../components/home/HomePainting";
+import HomeNews from "../components/home/HomeNews";
 
 export default function HomePage() {
-  const productsList = useSelector((state) => {
-    return state.frontendProducts.productsList
-  });
+  const productsList = useSelector((state) => state.frontendProducts.productsList);
+  
   const dispatch = useDispatch()
 
   const randomProductsList = useMemo(() => {
@@ -35,9 +38,7 @@ export default function HomePage() {
       {/* 最新作品 */}
       <HomePainting />
       {/* 最新消息 */}
-      <section className="container py-25">
-        <h2>最新消息</h2>
-      </section>
+      <HomeNews />
     </main>
   );
 }

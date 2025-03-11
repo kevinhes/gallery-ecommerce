@@ -35,7 +35,6 @@ export const getFrontProductsListByPage = createAsyncThunk(
       const response = await axios.get(getProductsUrl);
       const { products } = response.data;
       const { pagination } = response.data;
-      console.log(products);
       
       dispatch(setProducts(products))
       dispatch(setPagination(pagination))

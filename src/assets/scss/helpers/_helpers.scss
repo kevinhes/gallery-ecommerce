@@ -30,3 +30,12 @@
   object-fit: cover;
   width: 100%;
 }
+
+.link {
+  color: $dark;
+  text-decoration: underline;
+  transition: all .3s;
+  &:hover {
+    color: $primary;
+  }
+}
