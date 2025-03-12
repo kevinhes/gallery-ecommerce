@@ -15,16 +15,16 @@ export default function HomePainting() {
     return state.frontendProducts.productsList
   });
   return (
-    <section className="py-25 position-relative">
+    <section className="py-15 py-lg-25 position-relative">
       <div className="container position-relative z-index-100">
         <h2 className="text-center mb-10">
           最新作品
         </h2>
-        <div className="row">
+        <div className="row row-gap-5">
           {
             productsList.map((painting, index) => (
               index <= 3 ?
-                <div key={painting.id} className="col-3">
+                <div key={painting.id} className="col-12 col-md-6 col-xl-3">
                   <div className="card painting-card">
                     <div className="card-img-wrap">
                       <img
