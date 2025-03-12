@@ -35,7 +35,7 @@ export default function HomeNews() {
                           <p className="mb-2"><small> { news.author } </small></p>
                           <p> { news.description } </p>
                         </div>
-                        <Link className="text-end link">
+                        <Link className="text-end link" to={`/news/${news.id}`}>
                           <i>Read more</i>
                         </Link>
                       </div>

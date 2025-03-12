@@ -27,7 +27,7 @@ export const getNewsListByPage = createAsyncThunk(
       const response = await axios.get(getNewsUrl);
       const { articles } = response.data;
       const { pagination } = response.data;
-      console.log(articles);
+      // console.log(articles);
       
       
       dispatch(setNewsList(articles))

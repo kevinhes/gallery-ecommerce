@@ -4,6 +4,7 @@ const api = import.meta.env.VITE_API_PATH;
 import axios from 'axios';
 
 const initialState = {
+  allProductsList: [],
   productsList: [],
   pagination: {},
   isPageChanged: false,
@@ -15,6 +16,12 @@ export const frontendProductsSlice = createSlice({
   reducers: {
     setProducts(state, { payload }) {
       state.productsList = payload
+      
+    },
+    setAllProducts(state, { payload }) {
+      if ( state.allProductsList.length === 0 ) {
+        state.allProductsList = payload
+      }
     },
     setPagination(state, { payload }) {
       state.pagination = payload
@@ -25,10 +32,25 @@ export const frontendProductsSlice = createSlice({
   },
 });
 
+export const getFrontProductsList = createAsyncThunk(
+  'frontendProducts/getFrontProductsList',
+  async( payload, { dispatch }) => {
+    const getProductsUrl = `${baseUrl}v2/api/${api}/products`;
+    try {
+      const response = await axios.get(getProductsUrl);
+      const { products } = response.data;
+      
+      dispatch(setAllProducts(products))
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  }
+)
+
 export const getFrontProductsListByPage = createAsyncThunk(
   'frontendProducts/getFrontProductsListByPage',
-  async({ page = 1, maxPage = Infinity } = {}, { dispatch }) => {
-    const getProductsUrl = `${baseUrl}v2/api/${api}/products?page=${page}`;
+  async({ page = 1, maxPage = Infinity, category='' } = {}, { dispatch }) => {
+    const getProductsUrl = category ? `${baseUrl}v2/api/${api}/products?page=${page}&category=${category}` : `${baseUrl}v2/api/${api}/products?page=${page}`;
     
     if (page === 0 || page > maxPage) return;
     try {
@@ -44,6 +66,6 @@ export const getFrontProductsListByPage = createAsyncThunk(
   }
 )
 
-export const { setProducts, setPagination, setIsPageChanged } = frontendProductsSlice.actions;
+export const { setProducts, setPagination, setIsPageChanged, setAllProducts } = frontendProductsSlice.actions;
 
 export default frontendProductsSlice.reducer;

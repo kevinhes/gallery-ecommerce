@@ -1,0 +1,32 @@
+.gallery-banner{
+  padding-top: 80px;
+  padding-bottom: 120px;
+  position: relative;
+  overflow: hidden;
+  .banner-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 2;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: .5;
+    }
+  }
+  .bg-filter {
+    background: rgba($dark, .3);
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    backdrop-filter: blur(8px);
+  }
+  .feature-layout {
+    display: flex;
+  }
+}

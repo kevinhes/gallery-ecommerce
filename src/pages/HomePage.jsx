@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { getFrontProductsListByPage } from "../slice/frontendProductsSlice";
+import { getFrontProductsListByPage, getFrontProductsList } from "../slice/frontendProductsSlice";
 
 // components
 import HomeBanner from "../components/home/HomeBanner";
@@ -27,6 +27,7 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(getFrontProductsListByPage())
+    dispatch(getFrontProductsList())
   }, [])
 
   return (

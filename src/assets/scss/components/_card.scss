@@ -58,6 +58,9 @@
       object-fit: cover;
       object-position: center;
     }
+    &.product-card {
+      border: 1px solid rgba(0, 0, 0, 0.3);
+    }
   }
   &.news-card {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

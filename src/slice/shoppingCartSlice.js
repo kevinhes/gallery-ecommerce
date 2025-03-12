@@ -26,7 +26,7 @@ export const getShoppingCart = createAsyncThunk(
     try {
       const response = await axios.get(addCartUrl);
       const { carts } = response.data.data;
-      console.log(carts);
+      // console.log(carts);
       
       dispatch(setShoppingCart(carts))
     } catch (error) {

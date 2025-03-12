@@ -20,6 +20,7 @@ import HomePage from './pages/HomePage';
 import IndexPage from './pages/IndexPage';
 import ShoppingCart from './pages/ShoppingCart';
 import News from './pages/News';
+import SingleNews from './pages/News/SingleNews';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/shopping-cart" element={<ShoppingCart />}></Route>
           <Route path="/product/:id" element={<ProductPage />}></Route>
           <Route path="/news" element={<News />}></Route>
+          <Route path="/news/:id" element={<SingleNews />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
         <Route path="/login" element={<Login />}></Route>
