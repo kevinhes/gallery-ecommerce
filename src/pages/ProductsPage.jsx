@@ -26,10 +26,9 @@ export default function ProductsPage() {
   const randomProductsList = useMemo(() => {
     if (!productsList.length) return [];
 
-    // 建立一個陣列副本以避免修改原始 state
     return [...productsList]
       .sort(() => Math.random() - 0.5)
-      .slice(0, 3); // 只取前三個
+      .slice(0, 3);
   }, [productsList])
 
   useEffect(() => {
@@ -49,11 +48,11 @@ export default function ProductsPage() {
             <div className="offset-2 col-8">
               <div className="feature-layout">
                 <div className='w-67 me-3'>
-                  <img src={randomProductsList[0].imageUrl} alt="" className='w-100 h-100 objectfit-cover' />
+                  <img src={randomProductsList[0]?.imageUrl} alt="" className='w-100 h-100 objectfit-cover' />
                 </div>
                 <div className='w-33 d-flex flex-column justify-content-between'>
-                  <img src={randomProductsList[1].imageUrl} alt="" className='w-100 mb-3' />
-                  <img src={randomProductsList[2].imageUrl} alt="" className='w-100' />
+                  <img src={randomProductsList[1]?.imageUrl} alt="" className='w-100 mb-3' />
+                  <img src={randomProductsList[2]?.imageUrl} alt="" className='w-100' />
                 </div>
               </div>
             </div>
