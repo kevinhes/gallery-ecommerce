@@ -22,6 +22,7 @@ import ShoppingCart from './pages/ShoppingCart';
 import News from './pages/News';
 import SingleNews from './pages/News/SingleNews';
 import NotFound from './pages/NotFound';
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route index element={<HomePage />}></Route>
           <Route path="/products" element={<ProductsPage />}></Route>
           <Route path="/shopping-cart" element={<ShoppingCart />}></Route>
+          <Route path="/checkout" element={<CheckoutPage />}></Route>
           <Route path="/product/:id" element={<ProductPage />}></Route>
           <Route path="/news" element={<News />}></Route>
           <Route path="/news/:id" element={<SingleNews />}></Route>

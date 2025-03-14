@@ -28,7 +28,7 @@ export default function OrderDetail({ shoppingCartList }) {
           <h4>訂單總額</h4>
           <h4> ${formatNumber(cartTotal)} </h4>
         </div>
-        <Link className="btn btn-primary text-center h5">前往結帳</Link>
+        <Link className="btn btn-primary text-center h5" to={'/checkout'}>前往結帳</Link>
       </div>
     </>
   )

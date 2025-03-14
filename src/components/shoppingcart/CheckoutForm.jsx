@@ -5,9 +5,23 @@ import ReactLoading from 'react-loading';
 
 import PropTypes from 'prop-types';
 
-import { checkout } from '../../helpers/shoppingCart';
+// import { checkout } from '../../helpers/shoppingCart';
 
-export default function CheckoutForm( { handleShoppingCart } ) {
+import axios from 'axios';
+import Swal from 'sweetalert2';
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const api = import.meta.env.VITE_API_PATH;
+
+// router
+import { useDispatch } from 'react-redux';
+import { getShoppingCart } from '../../slice/shoppingCartSlice';
+
+// router
+import { useNavigate } from 'react-router-dom';
+
+export default function CheckoutForm() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [isOrderLoading, setIsOrderLoading] = useState(false);
 
   const {
@@ -16,10 +30,44 @@ export default function CheckoutForm( { handleShoppingCart } ) {
     formState: { errors },
   } = useForm();
 
+  const checkout = async (data) => {
+    const checkoutUrl = `${baseUrl}v2/api/${api}/order`;
+    const orderInfo = {
+      data: {
+        user: {
+          name: data.name,
+          email: data.email,
+          tel: data.tel,
+          address: data.address,
+        },
+        message: data.message,
+      },
+    };
+  
+    try {
+      const response = await axios.post(checkoutUrl, {
+        ...orderInfo,
+      });
+      await Swal.fire({
+        title: response.data.message,
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      await dispatch(getShoppingCart())
+      navigate('/')
+    } catch (error) {
+      Swal.fire({
+        title: error.response.data.message,
+        icon: 'error',
+        confirmButtonText: '確認',
+      });
+    }
+  };
+
   const checkoutOrder = async (data) => {
     setIsOrderLoading(true);
     await checkout(data);
-    await handleShoppingCart()
     setIsOrderLoading(false);
   };
 
@@ -30,28 +78,32 @@ export default function CheckoutForm( { handleShoppingCart } ) {
           <ReactLoading />
         </div>
       )}
+      <h4 className='mb-3'>配送資料</h4>
+      <hr />
       <form onSubmit={handleSubmit(checkoutOrder)} className="order-form">
-        <div className="form-floating mb-3">
+        <div className="mb-3">
+          <label htmlFor="username" className='mb-2'>姓名<sapn className="text-danger">*</sapn></label>
           <input
             type="text"
             className="form-control"
             id="name"
-            placeholder="姓名"
+            placeholder="王小明"
             {...register('name', {
               required: '姓名是必填的',
             })}
           />
-          <label htmlFor="username">姓名</label>
+
         </div>
         {errors.name && (
-          <p className="text-danger">{errors.name.message}</p>
+          <p className="text-danger mb-4">{errors.name.message}</p>
         )}
-        <div className="form-floating mb-3">
+        <div className=" mb-3">
+          <label htmlFor="email" className='mb-3'>Email<sapn className="text-danger">*</sapn></label>
           <input
             type="email"
             className="form-control"
             id="email"
-            placeholder="Email"
+            placeholder="XXXX@gmail.com"
             {...register('email', {
               required: 'Email 是必填的',
               pattern: {
@@ -60,17 +112,18 @@ export default function CheckoutForm( { handleShoppingCart } ) {
               },
             })}
           />
-          <label htmlFor="email">Email</label>
+
         </div>
         {errors.email && (
-          <p className="text-danger">{errors.email.message}</p>
+          <p className="text-danger mb-4">{errors.email.message}</p>
         )}
-        <div className="form-floating mb-3">
+        <div className="mb-3">
+          <label htmlFor="tel" className='mb-3'>手機號碼<sapn className="text-danger">*</sapn></label>
           <input
             type="tel"
             className="form-control"
             id="tel"
-            placeholder="手機號碼"
+            placeholder="09XXXXXXXX"
             {...register('tel', {
               required: '手機號碼是必填的',
               pattern: {
@@ -79,12 +132,13 @@ export default function CheckoutForm( { handleShoppingCart } ) {
               },
             })}
           />
-          <label htmlFor="tel">手機號碼</label>
+
         </div>
         {errors.tel && (
-          <p className="text-danger">{errors.tel.message}</p>
+          <p className="text-danger mb-4">{errors.tel.message}</p>
         )}
-        <div className="form-floating mb-3">
+        <div className="mb-3">
+          <label htmlFor="address" className='mb-3'>地址<sapn className="text-danger">*</sapn></label>
           <input
             type="text"
             className="form-control"
@@ -94,19 +148,20 @@ export default function CheckoutForm( { handleShoppingCart } ) {
               required: '地址是必填的',
             })}
           />
-          <label htmlFor="address">地址</label>
+
         </div>
         {errors.address && (
-          <p className="text-danger">{errors.address.message}</p>
+          <p className="text-danger mb-4">{errors.address.message}</p>
         )}
-        <div className="form-floating mb-3">
+        <div className="mb-10">
+          <label htmlFor="message" className='mb-3'>留言</label>
           <textarea
             className="form-control floating-area"
             placeholder="留言"
             id="message"
+            rows='5'
             {...register('message')}
           ></textarea>
-          <label htmlFor="message">留言</label>
         </div>
         <button type="submit" className="btn btn-primary w-100">
           訂單送出
