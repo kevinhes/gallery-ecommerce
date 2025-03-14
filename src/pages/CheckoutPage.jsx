@@ -24,7 +24,7 @@ export default function CheckoutPage() {
         </section>
         <div className="bg-filter"></div>
         <div className='banner-bg'>
-          <img src="/images/地中海.jpg" alt="" />
+          <img src="/images/PicassoGuernica.jpg" alt="" />
         </div>
       </section>
       <section className="container py-20">
