@@ -55,7 +55,7 @@ export default function CheckoutForm() {
         showConfirmButton: false,
       });
       await dispatch(getShoppingCart())
-      navigate('/')
+      navigate('/thank')
     } catch (error) {
       Swal.fire({
         title: error.response.data.message,
