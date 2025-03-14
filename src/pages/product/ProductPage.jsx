@@ -2,19 +2,32 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import ReactLoading from 'react-loading';
 
-// custom library
-import { getProduct } from '../../helpers/product';
-import { addProductToCart } from '../../helpers/shoppingCart';
+// redux
+import { useDispatch } from 'react-redux';
+import { addProductToCart } from '../../slice/shoppingCartSlice';
+
+// library
+import axios from 'axios';
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const api = import.meta.env.VITE_API_PATH;
 
 export default function ProductPage() {
   const { id } = useParams();
   const [product, setProduct] = useState('');
   const [qty, setQty] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch()
 
-  const handleProduct = async (id) => {
-    const productDetail = await getProduct(id);
-    setProduct(productDetail);
+  const getProduct = async (id) => {
+    const getProductsUrl = `${baseUrl}v2/api/${api}/product/${id}`;
+    try {
+      const response = await axios.get(getProductsUrl);
+      const { product } = response.data;
+  
+      setProduct(product);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
 
   const handelQty = (num) => {
@@ -22,14 +35,14 @@ export default function ProductPage() {
     setQty(num)
   }
 
-  const handleAddProduct = async (product_id, qty = 1) => {
+  const handleAddProduct = async (payload) => {
     setIsLoading(true);
-    await addProductToCart(product_id, qty);
+    await dispatch(addProductToCart(payload));
     setIsLoading(false);
   };
 
   useEffect(() => {
-    handleProduct(id);
+    getProduct(id);
   }, []);
 
   return (
@@ -94,7 +107,7 @@ export default function ProductPage() {
                 <button
                   type="button"
                   className="btn btn-danger"
-                  onClick={() => handleAddProduct(product.id, qty)}
+                  onClick={() => handleAddProduct({product_id:product.id, qty})}
                 >
                   加入購物車
                 </button>

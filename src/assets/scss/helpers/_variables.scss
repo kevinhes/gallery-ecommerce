@@ -306,6 +306,7 @@ $warning: $yellow !default;
 $danger: $red !default;
 $light: $gray-100 !default;
 $dark: $gray-900 !default;
+$gray: $gray-500;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -318,6 +319,7 @@ $theme-colors: (
   'danger': $danger,
   'light': $light,
   'dark': $dark,
+  'gray': $gray,
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -442,6 +444,10 @@ $spacers: (
   26: $spacer * 6.5,
   27: $spacer * 6.75,
   28: $spacer * 7,
+  29: $spacer * 7.24,
+  30: $spacer * 7.5,
+  31: $spacer * 7.75,
+  32: $spacer * 8,
 ) !default;
 // scss-docs-end spacer-variables-maps
 

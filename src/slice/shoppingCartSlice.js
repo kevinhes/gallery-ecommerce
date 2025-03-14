@@ -26,7 +26,7 @@ export const getShoppingCart = createAsyncThunk(
     try {
       const response = await axios.get(addCartUrl);
       const { carts } = response.data.data;
-      // console.log(carts);
+      console.log(carts);
       
       dispatch(setShoppingCart(carts))
     } catch (error) {
@@ -60,6 +60,77 @@ export const addProductToCart = createAsyncThunk(
     }
   }
 )
+
+export const editProductQty = createAsyncThunk(
+  'shoppingCart/editProductToCart',
+  async ({ cart_id, product_id, qty }, { dispatch }) => {
+    const editCartUrl = `${baseUrl}v2/api/${api}/cart/${cart_id}`;
+    try {
+      const response = await axios.put(editCartUrl, {
+        data: {
+          product_id,
+          qty,
+        },
+      });
+      if (response.data.success) {
+        await Swal.fire({
+          title: '產品數量已調整',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+      await dispatch(getShoppingCart())
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  }
+)
+
+export const deleteProductFromShoppingCart = createAsyncThunk(
+  'shoppingCart/deleteProductFromShoppingCart',
+  async ({product_id}, {dispatch}) => {
+    const deleteCartUrl = `${baseUrl}v2/api/${api}/cart/${product_id}`;
+    try {
+      const response = await axios.delete(deleteCartUrl);
+      if (response.data.success) {
+        await Swal.fire({
+          title: '產品已刪除',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+      await dispatch(getShoppingCart())
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  }
+)
+
+export const deleteAllProduct = createAsyncThunk(
+  'shoppingCart/deleteAllProduct',
+  async (payload, {dispatch}) => {
+    const deleteCartUrl = `${baseUrl}v2/api/${api}/carts`;
+    try {
+      const response = await axios.delete(deleteCartUrl);
+      if (response.data.success) {
+        await Swal.fire({
+          title: '購物車已清空',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+      await dispatch(getShoppingCart())
+    } catch (error) {
+      alert(error.response.data.message);
+    }
+  }
+)
+
+
+
 
 export const { setShoppingCart } = shoppingCartSlice.actions;
 
