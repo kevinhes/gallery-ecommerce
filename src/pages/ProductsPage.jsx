@@ -39,13 +39,13 @@ export default function ProductsPage() {
     <>
       <section className='gallery-banner'>
         <section className='container position-relative z-index-100'>
-          <div className="row mb-10">
-            <div className="offset-2 col-8">
+          <div className="row mb-5 mb-mb-10">
+            <div className="offset-lg-2 col-lg-8">
               <h1 className='text-light'>畫廊</h1>
             </div>
           </div>
           <div className="row">
-            <div className="offset-2 col-8">
+            <div className="offset-lg-2 col-lg-8">
               <div className="feature-layout">
                 <div className='w-67 me-3'>
                   <img src={randomProductsList[0]?.imageUrl} alt="" className='w-100 h-100 objectfit-cover' />
@@ -63,7 +63,7 @@ export default function ProductsPage() {
           <img src="/images/地中海.jpg" alt="" />
         </div>
       </section>
-      <section className="container position-relative py-25">
+      <section className="container position-relative py-10 py-md-25">
         {isLoading === true ? (
           <div className="w-100 vh-100 d-flex justify-content-center align-items-center">
             <ReactLoading type="spin" color="#4F46E5" />

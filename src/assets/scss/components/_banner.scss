@@ -1,8 +1,12 @@
 .gallery-banner{
   padding-top: 80px;
-  padding-bottom: 120px;
+  padding-bottom: 60px;
   position: relative;
   overflow: hidden;
+  @include media-breakpoint-up(md) {
+    padding-top: 80px;
+    padding-bottom: 120px;
+  }
   .banner-bg {
     position: absolute;
     width: 100%;
@@ -32,10 +36,14 @@
 }
 
 .paintion-banner {
-  padding-top: 40px;
+  padding-top: 80px;
   padding-bottom: 40px;
   position: relative;
   overflow: hidden;
+  @include media-breakpoint-up(md) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
   .bg-filter {
     background: rgba($dark, .3);
     position: absolute;

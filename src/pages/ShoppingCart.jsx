@@ -86,12 +86,12 @@ export default function ShoppingCart() {
           <img src="/images/PicassoGuernica.jpg" alt="" />
         </div>
       </section>
-      <section className="container py-20">
+      <section className="container py-10 py-md-20 shopping-cart-container">
         {shoppingCartList.length === 0 ? (
           <CartIsEmpty />
         ) : (
           <div className="row">
-            <div className="col-8">
+            <div className="col-12 col-lg-8 mb-5 mb-lg-0">
               {isCartLoading === true ? (
                 <div className="w-100 vh-100 d-flex justify-content-center align-items-center">
                   <ReactLoading type="spin" color="#4F46E5" />
@@ -104,17 +104,19 @@ export default function ShoppingCart() {
                     handleEditShoppingCart={handleEditShoppingCart}
                     deleteAllProductFromCart={deleteAllProductFromCart}
                   />
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={() => deleteAllProductFromCart()}
-                  >
-                    清空購物車
-                  </button>
+                  <div className="d-flex d-lg-block justify-content-end">
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => deleteAllProductFromCart()}
+                    >
+                      清空購物車
+                    </button>
+                  </div>
                 </>
               )}
             </div>
-            <div className="col-4">
+            <div className="col-lg-4">
               <OrderDetail shoppingCartList={shoppingCartList} />
             </div>
           </div>

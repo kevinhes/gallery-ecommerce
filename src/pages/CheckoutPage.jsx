@@ -27,12 +27,12 @@ export default function CheckoutPage() {
           <img src="/images/PicassoGuernica.jpg" alt="" />
         </div>
       </section>
-      <section className="container py-20">
+      <section className="container py-10 py-md-20">
         <div className="row">
-          <div className="col-8">
+          <div className="col-md-8 mb-5 mb-md-0">
             <CheckoutForm></CheckoutForm>
           </div>
-          <div className="col-4">
+          <div className="col-md-4">
             <h4 className='mb-3'>購物車明細</h4>
             <hr />
             <div className="order-form">

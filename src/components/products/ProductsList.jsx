@@ -35,7 +35,7 @@ export default function ProductsList({ productsList }) {
 
   return (
     <div className="row">
-      <div className="col-3">
+      <div className="col-md-3 mb-5 mb-md-0">
         <ul className='list-unstyled list'>
           <li className='list-item'>依流派選擇</li>
           {
@@ -52,7 +52,7 @@ export default function ProductsList({ productsList }) {
       <ul className="list-unstyled col-9 grid gap-8 mb-10">
         {
           productsList.map((painting) => (
-            <li key={painting.id} className="g-col-6">
+            <li key={painting.id} className="g-col-12 g-col-lg-6">
               <div className="card painting-card product-card">
                 <div className="card-img-wrap">
                   <img

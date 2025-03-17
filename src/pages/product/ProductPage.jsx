@@ -50,13 +50,13 @@ export default function ProductPage() {
       <section className='paintion-banner'>
         <div className="container position-relative z-index-100">
           <div className="row">
-            <div className="offset-2 col-8">
+            <div className="offset-md-2 col-md-8">
               <h1 className='text-light mb-10'>{product.title}</h1>
             </div>
           </div>
           <div className="row">
-            <div className="offset-3 col-6">
-              <img src={product.imageUrl} alt="" className='w-100 p-5 bg-light rounded-4' />
+            <div className="offset-md-3 col-md-6">
+              <img src={product.imageUrl} alt="" className='w-100 p-3 p-md-5 bg-light rounded-4' />
             </div>
           </div>
         </div>
@@ -65,14 +65,14 @@ export default function ProductPage() {
           <img src={product.imageUrl} alt={product.title} />
         </div>
       </section>
-      <section className="container py-20">
+      <section className="container py-md-20 py-10">
         {isLoading === true && (
           <div className="full-screen-loading">
             <ReactLoading />
           </div>
         )}
         <div className="row mb-12">
-          <div className="offset-2 col-8">
+          <div className="offset-md-2 col-md-8">
             <h3>畫作描述</h3>
             <hr />
             <div>
@@ -82,9 +82,9 @@ export default function ProductPage() {
           </div>
         </div>
         <div className="row">
-          <div className="offset-2 col-8">
-            <div className="d-flex justify-content-between align-items-center">
-              <div className="d-flex align-items-center">
+          <div className="offset-md-2 col-md-8">
+            <div className="d-md-flex justify-content-between align-items-center">
+              <div className="d-flex align-items-center justify-content-end justify-content-md-start mb-5 mb-md-0">
                 <p>
                   價格：
                 </p>
@@ -92,7 +92,7 @@ export default function ProductPage() {
                   {product.price}
                 </h2>
               </div>
-              <div className="d-flex align-items-center">
+              <div className="d-flex align-items-center justify-content-end justify-content-md-start">
                 <div className='d-flex me-5'>
                   <button type="button" className='me-3' onClick={() => handelQty(qty - 1)}>
                     <i className="bi bi-dash-lg"></i>

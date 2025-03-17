@@ -33,14 +33,14 @@ export default function NewsList() {
 
   return (
     <>
-    <section className="container position-relative py-25">
+    <section className="container position-relative py-10 py-md-25">
         {isLoading === true ? (
           <div className="w-100 vh-100 d-flex justify-content-center align-items-center">
             <ReactLoading type="spin" color="#4F46E5" />
           </div>
         ) : (
         <div className="row">
-          <ul className="list-unstyled grid gap-6 offset-2 col-8 mb-10">
+          <ul className="list-unstyled grid gap-6 offset-lg-2 col-lg-8 mb-10">
             {
               newsList.map((news) => (
                 <li key={news.id} className="card news-card g-col-12">
