@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import FrontNavbar from '../components/nav/FrontNavbar';
+import FooterNavbar from "../components/nav/FooterNavbar";
 import { Outlet } from 'react-router-dom';
 import { useEffect } from "react";
 
@@ -17,8 +18,9 @@ export default function IndexPage() {
     }, [])
   return (
     <>
-      <FrontNavbar></FrontNavbar>
-      <Outlet></Outlet>
+      <FrontNavbar />
+      <Outlet />
+      <FooterNavbar />
     </>
   );
 }

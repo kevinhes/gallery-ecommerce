@@ -19,7 +19,7 @@ export default function HomeBanner({ randomProductsList }) {
         <h1 className="federo">ArtNova</h1>
       </div>
       {/* 背景讀片 */}
-      <section className="position-absolute top-0 start-0 v-100 vh-100 overflow-hidden opacity-25 z-index-1">
+      <section className="position-absolute top-0 start-0 w-100 vh-100 overflow-hidden opacity-25 z-index-1">
         <img src={'/images/Tsunami_by_hokusai_19th_century.jpg'} alt="背景圖片" className="bg-image" />
       </section>
     </section>

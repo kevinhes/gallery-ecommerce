@@ -7,6 +7,7 @@ export const frontendNewsSlice = createSlice({
   name: 'frontendProducts',
   initialState: {
     newsList: [],
+    pagination: {},
   },
   reducers: {
     setNewsList(state, { payload }) {
