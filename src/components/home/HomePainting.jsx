@@ -1,6 +1,6 @@
 import { useDispatch, useSelector, } from "react-redux";
 import { Link } from "react-router-dom";
-
+const api = import.meta.env.VITE_API_PATH;
 // actions
 import { addProductToCart } from "../../slice/shoppingCartSlice";
 
@@ -47,7 +47,7 @@ export default function HomePainting() {
           }
         </div>
       </div>
-      <img src="/images/Starry_Night.jpg" alt="最新作品背景圖片" className="bg-image position-absolute top-0 start-0 opacity-50" />
+      <img src={`/${api}/images/Starry_Night.jpg`} alt="最新作品背景圖片" className="bg-image position-absolute top-0 start-0 opacity-50" />
     </section>
   )
 }
