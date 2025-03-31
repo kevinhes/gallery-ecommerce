@@ -13,6 +13,8 @@ import ShoppingCartList from '../components/shoppingcart/ShoppingCartList';
 import CartIsEmpty from '../components/shoppingcart/CartIsEmpty';
 import OrderDetail from '../components/shoppingcart/OrderDetail';
 
+const api = import.meta.env.VITE_API_PATH;
+
 // page
 export default function ShoppingCart() {
   const dispatch = useDispatch()
@@ -83,7 +85,7 @@ export default function ShoppingCart() {
         </section>
         <div className="bg-filter"></div>
         <div className='banner-bg'>
-          <img src="/images/PicassoGuernica.jpg" alt="" />
+          <img src={`/${api}/images/PicassoGuernica.jpg`} alt="" />
         </div>
       </section>
       <section className="container py-10 py-md-20 shopping-cart-container">

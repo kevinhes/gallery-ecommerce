@@ -11,6 +11,8 @@ import ReactLoading from 'react-loading';
 // components
 import ProductsList from '../components/products/productsList';
 
+const api = import.meta.env.VITE_API_PATH;
+
 export default function ProductsPage() {
   const productsList = useSelector((state) => state.frontendProducts.productsList)
   const dispatch = useDispatch()
@@ -60,7 +62,7 @@ export default function ProductsPage() {
         </section>
         <div className="bg-filter"></div>
         <div className='banner-bg'>
-          <img src="/images/地中海.jpg" alt="" />
+          <img src={`/${api}/images/地中海.jpg`} alt="" />
         </div>
       </section>
       <section className="container position-relative py-10 py-md-25">

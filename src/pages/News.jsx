@@ -1,10 +1,8 @@
 import NewsList from "../components/news/NewsList";
 
+const api = import.meta.env.VITE_API_PATH;
+
 export default function News() {
-  
-
-
-
   return (
     <>
       <section className='gallery-banner'>
@@ -23,7 +21,7 @@ export default function News() {
         </section>
         <div className="bg-filter"></div>
         <div className='banner-bg'>
-          <img src="/images/the_kiss.jpg" alt="" />
+          <img src={`/${api}/images/the_kiss.jpg`} alt="" />
         </div>
       </section>
       <NewsList />

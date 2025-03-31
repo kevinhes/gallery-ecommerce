@@ -6,6 +6,8 @@ import { useEffect, useMemo } from 'react';
 
 import { formatNumber } from '../helpers/helper';
 
+const api = import.meta.env.VITE_API_PATH;
+
 export default function CheckoutPage() {
   const dispatch = useDispatch()
 
@@ -24,7 +26,7 @@ export default function CheckoutPage() {
         </section>
         <div className="bg-filter"></div>
         <div className='banner-bg'>
-          <img src="/images/PicassoGuernica.jpg" alt="" />
+          <img src={`/${api}/images/PicassoGuernica.jpg`} alt="" />
         </div>
       </section>
       <section className="container py-10 py-md-20">
