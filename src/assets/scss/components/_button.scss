@@ -14,6 +14,16 @@
   }
 }
 
+.btn-warning {
+  border: 1px solid $warning;
+  background: $warning;
+  color: $light;
+  &:hover {
+  background: $secondary;
+  border: 1px solid $secondary;
+  }
+}
+
 .btn-outline-primary {
   border: 1px solid $primary;
   color: $dark;

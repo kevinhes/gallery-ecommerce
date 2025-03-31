@@ -11,7 +11,8 @@ import Dashboard from './pages/Dashboard';
 import DashboardIndex from './pages/Dashboard/DashboardIndex';
 import ProductsList from './pages/Dashboard/ProductsList';
 import NewsDashboard from './pages/Dashboard/NewsDashboard';
-import NewsDetail from './pages/Dashboard/NewsDashborad/NewsDetail';
+import NewsDetail from './pages/Dashboard/NewsDashboard/NewsDetail';
+import OrderDashboard from './pages/Dashboard/OrderDashboard';
 
 // 頁面匯入前台
 import ProductsPage from './pages/ProductsPage';
@@ -49,6 +50,7 @@ function App() {
           <Route path="news-dashboard" element={<NewsDashboard/>}></Route>
           <Route path='add-news' element={ <NewsDetail/> } ></Route>
           <Route path='edit-news/:id' element={ <NewsDetail/> } ></Route>
+          <Route path="order-dashboard" element={<OrderDashboard/>}></Route>
         </Route>
       </Routes>
     </>

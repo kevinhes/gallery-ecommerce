@@ -2,50 +2,44 @@
 import { Link, useNavigate } from "react-router-dom"
 
 // react hook
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // redux
 import { useSelector, useDispatch } from "react-redux";
-import { getNewsList } from "../../slice/adminNewsSlice";
+import { getOrdersList } from "../../slice/adminOrdersSlice";
 
 // custome library
 import { getCookie } from "../../helpers/auth";
 import { checkIsLogin } from "../../helpers/auth";
+import { formatNumber } from "../../helpers/helper";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const api = import.meta.env.VITE_API_PATH;
 
 // library
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Modal } from 'bootstrap';
 
 // components
 // import Pagination from '../../components/adminproduct/Pagination';
+import OrderDetailModal from "../../components/adminOrder/OrderDetailModal";
 
-export default function NewsDashboard() {
+export default function OrderDashboard() {
   // get redux
   const dispatch = useDispatch()
-  const allNews = useSelector((state) => state.adminNews.articlesList)
-  
+  const ordersList = useSelector((state) => state.adminOrders.ordersList)
+
   const navigate = useNavigate()
 
-  // get single news
-  const getSingleNews = async (id) => {
-    const cookies = document.cookie.split(';');
-    const hexToken = getCookie(cookies);
-
-    try {
-      const response = await axios.get(`${baseUrl}v2/api/${api}/admin/article/${id}`, {
-        headers: { Authorization: hexToken },
-      })
-      return response.data.article
-    } catch (error) {
-      Swal.fire({
-        title: error.response.data.message,
-        icon: 'warning',
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    }
+  // order modal
+  const [ tempOrder, setTempOrder ] = useState(null)
+  const orderModalRef = useRef(null);
+  const openOrderModal = (order) => {
+    setTempOrder(order)
+    orderModalRef.current.show()
+  }
+  const closeOrderModal = () => {
+    orderModalRef.current.hide()
   }
 
   // edit news
@@ -76,7 +70,7 @@ export default function NewsDashboard() {
           headers: { Authorization: hexToken },
         }
       )
-      dispatch(getNewsList())
+      // dispatch(getNewsList())
     } catch (error) {
       Swal.fire({
         title: error.response.data.message,
@@ -93,7 +87,7 @@ export default function NewsDashboard() {
     const hexToken = getCookie(cookies);
     try {
       await axios.delete(`${baseUrl}v2/api/${api}/admin/article/${id}`, { headers: { Authorization: hexToken } })
-      dispatch(getNewsList())
+      // dispatch(getNewsList())
     } catch (error) {
       Swal.fire({
         title: error.response.data.message,
@@ -106,16 +100,22 @@ export default function NewsDashboard() {
   }
 
   useEffect(() => {
-    ( async() => {
+    (async () => {
       await checkIsLogin(navigate)
-      await dispatch(getNewsList()).unwrap()
-    } )()
+      await dispatch(getOrdersList()).unwrap()
+    })();
+    orderModalRef.current = new Modal(
+      document.querySelector('#orderModalRef'),
+      {
+        backdrop: 'static',
+      }
+    );
   }, [])
 
   return (
     <>
       <header className="d-flex justify-content-between align-items-center">
-        <h1>文章管理</h1>
+        <h1>訂單管理</h1>
         <div>
           <Link
             to={'/dashboard/add-news'}
@@ -130,31 +130,37 @@ export default function NewsDashboard() {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">文章名稱</th>
-              <th scope="col">文章狀態</th>
+              <th scope="col">客戶</th>
+              <th scope="col">客戶 Email</th>
+              <th scope="col">聯絡電話</th>
+              <th scope="col">運送地址</th>
+              <th scope="col">是否已付款</th>
+              <th scope="col">訂單金額</th>
               <th scope="col">動作</th>
-              <th scope="col">發布</th>
             </tr>
           </thead>
           <tbody>
-            {allNews.map((news, index) => (
+            {ordersList.map((order, index) => (
               <tr
-                key={news.id}
-                className={news.isPublic ? '' : 'table-secondary'}
+                key={order.id}
+                className={order.is_paid ? '' : 'table-secondary'}
               >
                 <td> {index + 1} </td>
-                <td> {news.title} </td>
-                <td> {news.isPublic ? '已發佈' : '未發布'} </td>
+                <td> {order.user.name} </td>
+                <td> {order.user.email} </td>
+                <td> {order.user.tel} </td>
+                <td> {order.user.address} </td>
+                <td> {order.is_paid ? '是' : '否'} </td>
+                <td> {formatNumber(order.total)} </td>
                 <td>
-                  <Link className="btn btn-outline-primary d-inline-block" to={`/dashboard/edit-news/${news.id}`}>編輯</Link>
-                  <button type="button" className="btn btn-danger" onClick={() => deleteNews(news.id)}>刪除</button>
-                </td>
-                <td>
-                  {news.isPublic ?
-                    <button type="button" className="" onClick={() => editPublicStatus(news, false)}>轉為草稿</button>
-                    :
-                    <button type="button" className="" onClick={() => editPublicStatus(news, true)}>發布</button>
-                  }
+                  <button
+                    type="button"
+                    className="btn btn-warning"
+                    onClick={() => openOrderModal(order)}
+                  >
+                    訂單詳情
+                  </button>
+                  <button type="button" className="btn btn-danger">刪除</button>
                 </td>
               </tr>
             ))}
@@ -166,6 +172,10 @@ export default function NewsDashboard() {
                 changeProductPage={changeProductPage}
               /> */}
       </section>
+      <OrderDetailModal
+        tempOrder={tempOrder}
+        closeOrderModal={closeOrderModal}
+      />
     </>
   )
 }

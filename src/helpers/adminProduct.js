@@ -43,19 +43,23 @@ export const getProductsList = async () => {
   }
 };
 
-export const getProductsListByPage = async (page = 1, maxPage) => {
-  if (page === 0 || page > maxPage) return;
+export const getProductsListByPage = async (page = 1, maxPage = Infinity) => {
+  // const isLogin = await checkIsLogin(navigate)
+  
+  // if (page === 0 || page > maxPage || !isLogin ) return;
+  if (page === 0 || page > maxPage ) return;
+  
   const getProductsUrl = `${baseUrl}v2/api/${api}/admin/products?page=${page}`;
+  
   const cookies = document.cookie.split(';');
   const hexToken = getCookie(cookies);
   try {
     const response = await axios.get(getProductsUrl, {
       headers: { Authorization: hexToken },
     });
-
-    const { products } = response.data;
-    const { pagination } = response.data;
-    // const productsArray = Object.values(products)
+    // console.log(response);
+    
+    const { products, pagination } = response.data;
     return {
       products,
       pagination,
@@ -67,6 +71,34 @@ export const getProductsListByPage = async (page = 1, maxPage) => {
       timer: 1500,
       showConfirmButton: false,
     });
+  }
+};
+
+export const checkIsLogin = async (navigate) => {
+  const cookies = document.cookie.split(';');
+  const hexToken = getCookie(cookies);
+  const checkLoginUrl = `${baseUrl}v2/api/user/check`;
+  try {
+    const response = await axios.post(
+      checkLoginUrl,
+      {},
+      {
+        headers: { Authorization: hexToken },
+      }
+    );
+    if (response.data.success) {
+      return true;
+    }
+  } catch (error) {
+    const errorAlert = await Swal.fire({
+      title: error.response.data.message,
+      icon: 'error',
+      timer: 1500,
+      showConfirmButton: false,
+    });
+    if (errorAlert.isDismissed) {
+      navigate('/');
+    }
   }
 };
 

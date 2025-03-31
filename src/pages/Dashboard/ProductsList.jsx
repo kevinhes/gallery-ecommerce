@@ -1,4 +1,3 @@
-import { checkIsLogin } from '../../helpers/auth';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import Swal from 'sweetalert2';
@@ -13,6 +12,7 @@ import Pagination from '../../components/adminproduct/Pagination';
 import {
   getProductsList,
   getProductsListByPage,
+  checkIsLogin
 } from '../../helpers/adminProduct';
 
 export default function ProductsList() {
@@ -22,7 +22,6 @@ export default function ProductsList() {
   const [pagination, setPagination] = useState({});
 
   const [productsList, setProductsList] = useState([]);
-  const [isLogin, setIsLogin] = useState(false);
   const productModalRef = useRef(null);
   const deleteProductModalRef = useRef(null);
 
@@ -37,7 +36,6 @@ export default function ProductsList() {
   };
 
   const openDeleteProductModal = function (tempProduct) {
-    // setModalType(modalType);
     setTempProudct(tempProduct);
     deleteProductModalRef.current.show();
   };
@@ -46,9 +44,10 @@ export default function ProductsList() {
     deleteProductModalRef.current.hide();
   };
 
-  const changeProductPage = async (event, page, maxPage) => {
-    event.preventDefault();
-    const fetchPageProducts = await getProductsListByPage(page, maxPage);
+  const changeProductPage = async ( page, maxPage, navigate) => {
+    const fetchPageProducts = await getProductsListByPage(page, maxPage,navigate);
+    console.log(fetchPageProducts);
+    
     if (fetchPageProducts) {
       setProductsList(fetchPageProducts.products);
       setPagination(fetchPageProducts.pagination);
@@ -63,23 +62,14 @@ export default function ProductsList() {
   };
 
   useEffect(() => {
-    const verifyLogin = async () => {
-      await checkIsLogin(navigate);
-      setIsLogin(true);
-    };
-    verifyLogin();
-  });
-
-  useEffect(() => {
     const fetchProducts = async () => {
-      const data = await getProductsListByPage();
+      await checkIsLogin(navigate)
+      const data = await getProductsListByPage(1,Infinity, navigate);
       setProductsList(data.products);
       setPagination(data.pagination);
     };
-    if (isLogin) {
-      fetchProducts();
-    }
-  }, [isLogin]);
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
     productModalRef.current = new Modal(

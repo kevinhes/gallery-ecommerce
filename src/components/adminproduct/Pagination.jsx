@@ -5,51 +5,49 @@ export default function Pagination({ pagination, changeProductPage }) {
     <nav aria-label="Page navigation">
       <ul className="pagination">
         <li className="page-item">
-          <a
+          <button
             className="page-link"
-            href="#"
+            type='button'
             aria-label="Previous"
-            onClick={(event) =>
+            onClick={() =>
               changeProductPage(
-                event,
                 pagination.current_page - 1,
                 pagination.total_pages
               )
             }
           >
             <span aria-hidden="true">&laquo;</span>
-          </a>
+          </button>
         </li>
         {[...Array(pagination.total_pages).keys()].map((page) => {
           return (
             <li className="page-item" key={page}>
-              <a
+              <button
                 className="page-link"
-                href="#"
-                onClick={(event) =>
-                  changeProductPage(event, page + 1, pagination.total_pages)
+                type='button'
+                onClick={() =>
+                  changeProductPage(page + 1, pagination.total_pages)
                 }
               >
                 {page + 1}
-              </a>
+              </button>
             </li>
           );
         })}
         <li className="page-item">
-          <a
+          <button
             className="page-link"
-            href="#"
+            type='button'
             aria-label="Next"
-            onClick={(event) =>
+            onClick={() =>
               changeProductPage(
-                event,
                 pagination.current_page + 1,
                 pagination.total_pages
               )
             }
           >
             <span aria-hidden="true">&raquo;</span>
-          </a>
+          </button>
         </li>
       </ul>
     </nav>

@@ -4,6 +4,7 @@ import frontendProductsReducer from './slice/frontendProductsSlice';
 import frontendNewsReducer from './slice/frontendNewsSlice';
 import shoppingCartReducer from './slice/shoppingCartSlice';
 import adminNewsReducer from './slice/adminNewsSlice';
+import adminOrdersReducer from './slice/adminOrdersSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     frontendProducts:frontendProductsReducer,
     frontendNews:frontendNewsReducer,
     shoppingCart:shoppingCartReducer,
-    adminNews: adminNewsReducer
+    adminNews: adminNewsReducer,
+    adminOrders: adminOrdersReducer
   },
 });

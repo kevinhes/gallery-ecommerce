@@ -13,6 +13,7 @@ const api = import.meta.env.VITE_API_PATH;
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import Swal from 'sweetalert2';
 
 export default function NewsDetail() {
   const { id } = useParams();
@@ -31,8 +32,7 @@ export default function NewsDetail() {
     e.preventDefault();
     const newsPostUrl = id ? `${baseUrl}v2/api/${api}/admin/article/${id}` : `${baseUrl}v2/api/${api}/admin/article`
     const apiMethod = id ? 'put' : 'post'
-    console.log(apiMethod, newsPostUrl);
-    
+
     try {
       const response = await axios[apiMethod](newsPostUrl, {
         "data": {
@@ -56,8 +56,12 @@ export default function NewsDetail() {
         navigate('/dashboard/news-dashboard')
       };
     } catch (error) {
-      console.log(error);
-
+      Swal.fire({
+        title: error.response.data.message,
+        icon: 'warning',
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
   };
 
@@ -72,7 +76,12 @@ export default function NewsDetail() {
       setDescription(article.description)
 
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        title: error.response.data.message,
+        icon: 'warning',
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
   }
 

@@ -33,7 +33,6 @@ export const getNewsList = createAsyncThunk(
     });
     const { articles } = response.data
     const { pagination } = response.data
-    // console.log(pagination);
     
     dispatch(setArticlesList(articles));
     dispatch(setPagination(pagination));

@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react'
 // router
 import { useParams } from 'react-router-dom';
 
-// custom library
+// library
 import axios from 'axios';
 import ReactLoading from 'react-loading';
+import Swal from 'sweetalert2';
 
 // base
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -26,7 +27,12 @@ export default function SingleNews() {
       const { article } = response.data
       setSingleNews(article)
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        title: error.response.data.message,
+        icon: 'warning',
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
     setIsLoading(false)
   }

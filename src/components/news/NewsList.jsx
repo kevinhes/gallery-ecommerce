@@ -18,11 +18,7 @@ export default function NewsList() {
 
   const handelNewsPage = async() => {
     setIsLoading(true);
-    try {
-      await dispatch(getNewsListByPage())
-    } catch (error) {
-      console.log(error);
-    }
+    await dispatch(getNewsListByPage()).unwrap()
     setIsLoading(false);
   }
 
